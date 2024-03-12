@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -10,7 +10,7 @@ import {
   DrawerContent,
   VStack,
   HStack,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   Menu,
   MenuButton,
@@ -20,27 +20,27 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
-} from "@chakra-ui/react";
-import { BiMenuAltLeft } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { useAuth } from "../store/auth";
+} from '@chakra-ui/react';
+import { BiMenuAltLeft } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../store/auth';
 const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { isLoggedIn, user } = useAuth();
-  const { username } = user;
+
   return (
     <>
       <Button
-        pos={"fixed"}
+        pos={'fixed'}
         top={4}
         left={4}
-        colorScheme={"green"}
-        p={"0"}
-        w={"10"}
-        h={"10"}
-        borderRadius={"full"}
+        colorScheme={'green'}
+        p={'0'}
+        w={'10'}
+        h={'10'}
+        borderRadius={'full'}
         onClick={onOpen}
-        zIndex={"overlay"}
+        zIndex={'overlay'}
       >
         <BiMenuAltLeft />
       </Button>
@@ -48,16 +48,16 @@ const Navbar = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader color={"green"}>Contact MNGR</DrawerHeader>
+          <DrawerHeader color={'green'}>Contact MNGR</DrawerHeader>
           <DrawerBody>
-            <VStack alignItems={"flex-start"}>
-              <Button onClick={onClose} variant={"ghost"} colorScheme={"green"}>
-                <Link to={"/"}>Home</Link>
+            <VStack alignItems={'flex-start'}>
+              <Button onClick={onClose} variant={'ghost'} colorScheme={'green'}>
+                <Link to={'/'}>Home</Link>
               </Button>
-              <Button onClick={onClose} variant={"ghost"} colorScheme={"green"}>
+              <Button onClick={onClose} variant={'ghost'} colorScheme={'green'}>
                 <Link
-                  target={"blank"}
-                  to={"https://movie-ticket-zeta.vercel.app/"}
+                  target={'blank'}
+                  to={'https://movie-ticket-zeta.vercel.app/'}
                   onClick={onClose}
                 >
                   Movie Zone
@@ -65,11 +65,11 @@ const Navbar = () => {
               </Button>
             </VStack>
             <HStack
-              position={"absolute"}
-              bottom={"10"}
-              left={"0"}
-              width={"full"}
-              justifyContent={"space-evenly"}
+              position={'absolute'}
+              bottom={'10'}
+              left={'0'}
+              width={'full'}
+              justifyContent={'space-evenly'}
               p={10}
             >
               {isLoggedIn ? (
@@ -77,46 +77,48 @@ const Navbar = () => {
                   <MenuButton
                     as={Button}
                     // onClick={onClose}
-                    variant={"ghost"}
-                    colorScheme={"green"}
+                    variant={'ghost'}
+                    colorScheme={'green'}
                   >
                     Profile
                   </MenuButton>
                   <MenuList>
-                    <MenuGroup title={username}>
+                    <MenuGroup title={user.username}>
                       <MenuItem onClick={onClose}>
-                        <Link to={"/profile"}>My Account</Link>
-                      </MenuItem>
-                      <MenuItem onClick={onClose}>
-                        <Link to={"/contact"}>All Contacts </Link>
+                        <Link to={'/profile'}>My Account</Link>
                       </MenuItem>
                     </MenuGroup>
                     <MenuDivider />
-                    <MenuGroup title="Help">
-                      <MenuItem>FAQ</MenuItem>
+                    <MenuGroup title="Contacts">
+                      <MenuItem onClick={onClose}>
+                        <Link to={'/add'}>Add Contact </Link>
+                      </MenuItem>
+                      <MenuItem onClick={onClose}>
+                        <Link to={'/contact'}>All Contacts </Link>
+                      </MenuItem>
                     </MenuGroup>
                   </MenuList>
                 </Menu>
               ) : (
                 <Button
                   onClick={onClose}
-                  colorScheme={"green"}
-                  variant={"outline"}
+                  colorScheme={'green'}
+                  variant={'outline'}
                 >
-                  <Link to={"/signup"}>Sign Up</Link>
+                  <Link to={'/signup'}>Sign Up</Link>
                 </Button>
               )}
               {isLoggedIn ? (
                 <Button
                   onClick={onClose}
-                  colorScheme={"green"}
-                  variant={"outline"}
+                  colorScheme={'green'}
+                  variant={'outline'}
                 >
-                  <Link to={"/logout"}>Log Out</Link>
+                  <Link to={'/logout'}>Log Out</Link>
                 </Button>
               ) : (
-                <Button onClick={onClose} colorScheme={"green"}>
-                  <Link to={"/login"}>Log In</Link>
+                <Button onClick={onClose} colorScheme={'green'}>
+                  <Link to={'/login'}>Log In</Link>
                 </Button>
               )}
             </HStack>

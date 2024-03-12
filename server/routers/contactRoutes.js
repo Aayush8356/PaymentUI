@@ -9,13 +9,13 @@ const {
 const validateToken = require("../middleware/validateTokenHandler");
 const router = express.Router();
 
-router.use(validateToken);
+// router.use(validateToken);
 
 // router.route("/").get(getContacts).post(createContact);
 
 // router.route("/:id").get(getContact).put(updateContact).delete(deleteContact);
 
-router.route("/add/new").post(validateToken, createContact);
+router.route("/new").post(validateToken, createContact);
 router.route("/").get(validateToken, getContacts);
 router.route("/person").get(validateToken, getContact);
 router.route("/update").put(validateToken, updateContact);

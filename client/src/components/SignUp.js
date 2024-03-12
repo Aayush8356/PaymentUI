@@ -6,21 +6,23 @@ import {
   Input,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
   });
-  const URL = "https://contactmanagerbackend-y53j.onrender.com";
+  const URL = 'http://localhost:5000';
 
   const navigate = useNavigate();
 
-  const handleInput = (e) => {
+  const [condition, setCondition] = useState(false);
+
+  const handleInput = e => {
     let name = e.target.name;
     let value = e.target.value;
 
@@ -30,44 +32,45 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     console.log(user);
+    setCondition(true);
     try {
       const response = await fetch(`${URL}/user/register`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       });
       console.log(response);
-      alert("registered!");
+      alert('registered!');
 
       if (response.ok) {
-        navigate("/login");
+        navigate('/login');
       }
     } catch (error) {
-      console.log("error from register", error);
+      console.log('error from register', error);
     }
   };
   return (
-    <Container maxW={["full", "container.xl"]} h={"100vh"} p={"16"}>
+    <Container maxW={['full', 'container.xl']} h={'100vh'} p={'16'}>
       <form onSubmit={handleSubmit}>
         <VStack
-          alignItems={"stretch"}
+          alignItems={'stretch'}
           spacing={8}
-          w={["full", "96"]}
-          m={"auto"}
-          my={"16"}
+          w={['full', '96']}
+          m={'auto'}
+          my={'16'}
         >
-          <Heading p={1} alignSelf={"center"} border={"1px solid blueviolet "}>
+          <Heading p={1} alignSelf={'center'} border={'1px solid blueviolet '}>
             Contact MNGR
           </Heading>
           <Avatar
-            alignSelf={"center"}
+            alignSelf={'center'}
             boxSize={32}
-            border={"1px solid blueviolet "}
+            border={'1px solid blueviolet '}
           />
           <Input
             placeholder="username"
@@ -105,13 +108,18 @@ const SignUp = () => {
             required
             focusBorderColor="green.400"
           /> */}
-          <Text textAlign={"center"}>
-            Already Signed Up?{" "}
-            <Button variant={"link"}>
-              <Link to={"/login"}>Login</Link>
+          <Text textAlign={'center'}>
+            Already Signed Up?{' '}
+            <Button variant={'link'}>
+              <Link to={'/login'}>Login</Link>
             </Button>
           </Text>
-          <Button colorScheme={"green"} type="submit">
+          <Button
+            colorScheme={'green'}
+            type="submit"
+            isLoading={condition}
+            loadingText="Submitting"
+          >
             SignUp
           </Button>
         </VStack>

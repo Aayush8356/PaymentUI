@@ -4,12 +4,12 @@ const createContact = asyncHandler(async (req, res) => {
   const { name, phone, email } = req.body;
   if (!name || !phone || !email) {
     res.status(400);
-    throw new Error("All field are mandatory!");
+    return { error: "All field are mandatory!" };
   }
   const availableUserName = await Contact.findOne({ email });
   if (availableUserName) {
     res.status(400);
-    throw new Error("Email Address already exists!");
+    return { error: "Email Address already exists!" };
   }
   const contact = await Contact.create({
     user_id: req.user.id,
@@ -62,7 +62,7 @@ const deleteContact = asyncHandler(async (req, res) => {
   }
   if (req.user.id !== contact.user_id.toString()) {
     res.status(403);
-    throw new Error("Dushre ka mt dekh bhai Jaldi waha se hato");
+    return error, "deleting non-existing contact";
   }
   await contact.deleteOne();
   res.status(200).json(contact);

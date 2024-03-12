@@ -10,14 +10,15 @@ const validateToken = asyncHandler(async (req, res, next) => {
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
       res.status(401);
-      return Error("User is not valid or access token expired");
+      return { error: "User is not valid or access token expired" };
     }
     req.user = decoded.user;
     next();
   });
   if (!accessToken) {
     res.status(401);
-    return Error("Token is not valid or invalid user");
+    //return Error("Token is not valid or invalid user");
+    return { error: "Token is not valid or invalid user" };
   }
 });
 module.exports = validateToken;

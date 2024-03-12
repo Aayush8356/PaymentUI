@@ -15,17 +15,22 @@ const Login = () => {
     username: '',
     password: '',
   });
-  const URL = 'https://contactmanagerbackend-y53j.onrender.com';
+  const URL = 'http://localhost:5000';
 
-  const { storeTokenInLS } = useAuth();
+  const { storeTokenInLS, userAuthentication } = useAuth();
   const navigate = useNavigate();
   const handleInput = e => {
     let name = e.target.name;
     let value = e.target.value;
     setUser({ ...user, [name]: value });
   }; // comment
+  const [condition, setCondition] = useState(false);
+  // function handleOneClick(e) {
+  //   setCondition(true);
+  // }
   const handleSubmit = async e => {
     e.preventDefault();
+    setCondition(true);
     try {
       const response = await fetch(`${URL}/user/login`, {
         method: 'POST',
@@ -37,6 +42,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         storeTokenInLS(data.accessToken);
+        // await userAuthentication();
         alert('Login successful');
         navigate('/');
       } else {
@@ -44,6 +50,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
+      setCondition(false);
     }
   };
   return (
@@ -78,7 +85,12 @@ const Login = () => {
           <Button variant={'link'} alignSelf={'end'}>
             <Link to={'/forgetPassword'}>Forget Password?</Link>
           </Button>
-          <Button colorScheme={'green'} type="submit">
+          <Button
+            colorScheme={'green'}
+            type="submit"
+            isLoading={condition}
+            loadingText="Logging In"
+          >
             Login
           </Button>
           <Text textAlign={'center'}>

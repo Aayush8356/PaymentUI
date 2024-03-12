@@ -1,14 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import { Logout } from "./components/Logout";
-import { useAuth } from "./store/auth";
-import Profile from "./pages/Profile";
-import Navbar from "./components/Navbar";
-import Signup from "./components/SignUp";
-import Footer from "./components/Footer";
-import Contacts from "./pages/Contacts";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import { Logout } from './components/Logout';
+import { useAuth } from './store/auth';
+import Profile from './pages/Profile';
+import Navbar from './components/Navbar';
+import Signup from './components/SignUp';
+import Footer from './components/Footer';
+import Contacts from './pages/Contacts';
+import CreateContact from './pages/CreateContact';
 const App = () => {
   const { isLoggedIn } = useAuth();
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/contact" element={<Contacts />} />
+            <Route path="/add" element={<CreateContact />} />
           </>
         ) : (
           <>
