@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ButtonGroup,
   Flex,
+  HStack,
   IconButton,
   Table,
   Tbody,
@@ -17,7 +18,7 @@ import { BsBoxArrowUpRight, BsFillTrashFill } from 'react-icons/bs';
 import { useAuth } from '../store/auth';
 import { useNavigate } from 'react-router-dom';
 const ContactTable = () => {
-  const header = ['name', 'phone', 'actions'];
+  const header = ['id', 'name', 'phone', 'actions'];
   const color1 = useColorModeValue('gray.400', 'gray.400');
   const color2 = useColorModeValue('gray.400', 'gray.400');
   const { token, isLoggedIn } = useAuth();
@@ -26,6 +27,7 @@ const ContactTable = () => {
   if (!isLoggedIn) {
     navigate('/logout');
   }
+
   async function getContacts() {
     try {
       const response = await fetch(`http://localhost:5000/contact/`, {
@@ -39,6 +41,7 @@ const ContactTable = () => {
       setFile(
         data.map(key => {
           return {
+            id: key._id,
             name: key.name,
             phone: key.phone,
           };
@@ -68,6 +71,8 @@ const ContactTable = () => {
       p={50}
       alignItems="center"
       justifyContent="center"
+      // maxW={['full', 'container.xl']}
+      // h={'100vh'}
     >
       <Table
         w="full"
@@ -195,6 +200,32 @@ const ContactTable = () => {
                       variant="outline"
                       icon={<BsFillTrashFill />}
                       aria-label="Delete"
+                      onClick={async () => {
+                        try {
+                          const response = await fetch(
+                            `http://localhost:5000/contact/remove`,
+                            {
+                              headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${localStorage.getItem(
+                                  'token'
+                                )}`,
+                              },
+                              method: 'DELETE',
+                              body: JSON.stringify({ contact_id: index.id }),
+                            }
+                          );
+                          console.log(
+                            'Yes, deleted successfully',
+                            response.data
+                          );
+                          setTimeout(function () {
+                            window.location.reload();
+                          }, 1000);
+                        } catch (error) {
+                          console.log(error);
+                        }
+                      }}
                     />
                   </ButtonGroup>
                 </Td>

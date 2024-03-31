@@ -1,22 +1,26 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { FaEmpire } from 'react-icons/fa';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [user, setUser] = useState({});
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const URL = 'http://localhost:5000';
 
   const storeTokenInLS = serverToken => {
     setToken(serverToken);
     localStorage.setItem('token', serverToken);
   };
-  let isLoggedIn = !!token;
-  const [login, setLogin] = useState(isLoggedIn);
+  // let isLoggedIn = !!token;
 
   const LogoutUser = () => {
     setToken('');
     localStorage.removeItem('token');
+    setUser({});
+    setLoggedIn(false);
   };
   const userAuthentication = async () => {
     try {
@@ -30,19 +34,37 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         console.log('response', data);
         setUser(data);
-      } else if (response.status === 401) {
-        console.log('token expired');
-        setLogin(false);
-        setToken('');
-        localStorage.removeItem('token');
       }
     } catch (error) {
       console.error(error, 'Authentication failed');
     }
   };
+  const checkTokenValidity = token => {
+    if (!token) {
+      return false;
+    }
+
+    const decodedToken = jwtDecode(token);
+
+    if (!decodedToken.exp) {
+      return false;
+    }
+
+    const currentTime = Date.now() / 1000;
+
+    return decodedToken.exp > currentTime;
+  };
   useEffect(() => {
-    userAuthentication();
-  }, []);
+    if (token) {
+      let isTokenValid = checkTokenValidity(token);
+      if (isTokenValid) {
+        setLoggedIn(true);
+        userAuthentication();
+      } else {
+        localStorage.removeItem('token');
+      }
+    }
+  }, [token]);
   return (
     <AuthContext.Provider
       value={{
@@ -50,7 +72,6 @@ export const AuthProvider = ({ children }) => {
         token,
         storeTokenInLS,
         user,
-        login,
         LogoutUser,
         userAuthentication,
       }}

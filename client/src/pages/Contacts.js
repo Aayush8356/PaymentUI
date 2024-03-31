@@ -9,6 +9,7 @@ const Contacts = () => {
   if (!isLoggedIn) {
     navigate('/logout');
   }
+
   return (
     <>
       <ContactTable />

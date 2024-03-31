@@ -42,7 +42,6 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         storeTokenInLS(data.accessToken);
-        // await userAuthentication();
         alert('Login successful');
         navigate('/');
       } else {

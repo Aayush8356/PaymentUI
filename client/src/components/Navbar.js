@@ -26,8 +26,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { isLoggedIn, user } = useAuth();
-
+  const { isLoggedIn, user, LogoutUser } = useAuth();
+  const logoutHandler = () => {
+    onClose();
+    LogoutUser();
+  };
   return (
     <>
       <Button
@@ -110,11 +113,11 @@ const Navbar = () => {
               )}
               {isLoggedIn ? (
                 <Button
-                  onClick={onClose}
+                  onClick={logoutHandler}
                   colorScheme={'green'}
                   variant={'outline'}
                 >
-                  <Link to={'/logout'}>Log Out</Link>
+                  Log Out
                 </Button>
               ) : (
                 <Button onClick={onClose} colorScheme={'green'}>

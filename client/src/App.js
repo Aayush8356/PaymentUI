@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -12,6 +12,11 @@ import Contacts from './pages/Contacts';
 import CreateContact from './pages/CreateContact';
 const App = () => {
   const { isLoggedIn } = useAuth();
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     window.location.replace('/login');
+  //   }
+  // }, []);
   return (
     <Router>
       <Navbar />
