@@ -1,0 +1,22 @@
+-- Sample transactions for demo purposes
+INSERT INTO transactions (transaction_id, amount, currency, status, payment_method, metadata) VALUES
+('TXN1703123456789', 1299.99, 'INR', 'completed', 'upi', '{"upi_id": "user@paytm"}'),
+('TXN1703123456790', 899.50, 'INR', 'completed', 'card', '{"card_last_four": "1234", "card_type": "visa"}'),
+('TXN1703123456791', 2499.00, 'INR', 'failed', 'netbanking', '{"bank_name": "sbi"}'),
+('TXN1703123456792', 599.99, 'INR', 'completed', 'wallet', '{"wallet_type": "paytm"}'),
+('TXN1703123456793', 1799.00, 'INR', 'completed', 'card', '{"card_last_four": "5678", "card_type": "mastercard"}'),
+('TXN1703123456794', 3299.99, 'INR', 'completed', 'upi', '{"upi_id": "customer@gpay"}'),
+('TXN1703123456795', 750.00, 'INR', 'pending', 'netbanking', '{"bank_name": "hdfc"}'),
+('TXN1703123456796', 1199.99, 'INR', 'completed', 'wallet', '{"wallet_type": "phonepe"}'),
+('TXN1703123456797', 4999.00, 'INR', 'completed', 'paypal', '{"paypal_email": "user@example.com"}'),
+('TXN1703123456798', 299.99, 'INR', 'failed', 'card', '{"card_last_four": "9012", "card_type": "rupay"}'),
+('TXN1703123456799', 1899.50, 'INR', 'completed', 'upi', '{"upi_id": "merchant@ybl"}'),
+('TXN1703123456800', 699.99, 'INR', 'completed', 'wallet', '{"wallet_type": "amazonpay"}'),
+('TXN1703123456801', 2299.00, 'INR', 'completed', 'card', '{"card_last_four": "3456", "card_type": "visa"}'),
+('TXN1703123456802', 899.99, 'INR', 'completed', 'netbanking', '{"bank_name": "icici"}'),
+('TXN1703123456803', 1599.00, 'INR', 'completed', 'upi', '{"upi_id": "shop@okaxis"}'),
+('TXN1703123456804', 499.99, 'INR', 'failed', 'wallet', '{"wallet_type": "googlepay"}'),
+('TXN1703123456805', 3799.99, 'INR', 'completed', 'card', '{"card_last_four": "7890", "card_type": "mastercard"}'),
+('TXN1703123456806', 1099.50, 'INR', 'completed', 'paypal', '{"paypal_email": "business@company.com"}'),
+('TXN1703123456807', 799.99, 'INR', 'completed', 'upi', '{"upi_id": "customer@ibl"}'),
+('TXN1703123456808', 2199.00, 'INR', 'completed', 'netbanking', '{"bank_name": "axis"}');

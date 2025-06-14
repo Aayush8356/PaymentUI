@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: payment-ui-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: DB_HOST
+        fromDatabase:
+          name: payment-ui-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: payment-ui-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: payment-ui-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: payment-ui-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: payment-ui-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://your-payment-ui.vercel.app
+
+databases:
+  - name: payment-ui-db
+    databaseName: payment_ui_production
+    user: payment_ui_user

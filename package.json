@@ -1,0 +1,46 @@
+{
+  "name": "payment-ui-system",
+  "version": "1.0.0",
+  "description": "Full-stack payment UI component and admin dashboard system",
+  "keywords": [
+    "payment",
+    "ui",
+    "react",
+    "typescript",
+    "glassmorphism",
+    "dashboard",
+    "admin",
+    "postgresql",
+    "tailwind"
+  ],
+  "author": "Payment UI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/payment-ui-system.git"
+  },
+  "scripts": {
+    "install:all": "npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
+    "db:setup": "psql -U postgres -d payment_ui -f database/schema.sql",
+    "db:seed": "psql -U postgres -d payment_ui -f database/seed.sql",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
